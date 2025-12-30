@@ -91,6 +91,12 @@
         navigate_with_arrows = "true";
       };
     };
+    neovim = {
+      enable = true;
+      extraLuaConfig = ''
+        vim.cmd [[source /etc/nixos/repti/sk4zuzu/.config/nvim/init.vim]]
+      '';
+    };
     ssh = {
       enable = true;
       enableDefaultConfig = false;
@@ -113,7 +119,6 @@
     htop
     igrep
     jq
-    neovim
     patch
     ripgrep
     wget which
@@ -141,13 +146,13 @@
       ln = config.lib.file.mkOutOfStoreSymlink;
     in {
       ".config/mpv/scripts/eww.lua".source = ln "/etc/nixos/repti/sk4zuzu/.config/mpv/scripts/eww.lua";
-      ".config/nvim".source = ln "/etc/nixos/repti/sk4zuzu/.config/nvim";
+      ".config/nvim/colors/molokai.vim".source = /etc/nixos/repti/sk4zuzu/.config/nvim/colors/molokai.vim;
       ".config/redshift.conf".source = ln "/etc/nixos/repti/sk4zuzu/.config/redshift.conf";
       ".local/bin/acpi.sh".source = ln "/etc/nixos/repti/sk4zuzu/.local/bin/acpi.sh";
       ".local/bin/asd".source = ln "/etc/nixos/repti/sk4zuzu/.local/bin/asd";
       ".local/bin/ead".source = ln "/etc/nixos/repti/sk4zuzu/.local/bin/ead";
       ".local/bin/xrandr.sh".source = ln "/etc/nixos/repti/sk4zuzu/.local/bin/xrandr.sh";
-      ".local/share/fonts".source = ln "/etc/nixos/repti/sk4zuzu/.local/share/fonts";
+      ".local/share/fonts".source = /etc/nixos/repti/sk4zuzu/.local/share/fonts;
       ".xmonad/xmonad.hs".source = ln "/etc/nixos/repti/sk4zuzu/.xmonad/xmonad.hs";
     };
 }

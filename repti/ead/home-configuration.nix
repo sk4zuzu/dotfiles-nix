@@ -86,6 +86,12 @@
         navigate_with_arrows = "true";
       };
     };
+    neovim = {
+      enable = true;
+      extraLuaConfig = ''
+        vim.cmd [[source /etc/nixos/repti/ead/.config/nvim/init.vim]]
+      '';
+    };
     ssh = {
       enable = true;
       enableDefaultConfig = false;
@@ -107,7 +113,6 @@
     gnumake
     igrep
     jq
-    neovim
     patch procs
     ripgrep
     which
@@ -116,6 +121,6 @@
     let
       ln = config.lib.file.mkOutOfStoreSymlink;
     in {
-      ".config/nvim".source = ln "/etc/nixos/repti/ead/.config/nvim";
+      ".config/nvim/colors/molokai.vim".source = /etc/nixos/repti/ead/.config/nvim/colors/molokai.vim;
     };
 }

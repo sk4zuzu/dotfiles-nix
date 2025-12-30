@@ -74,6 +74,12 @@
         navigate_with_arrows = "true";
       };
     };
+    neovim = {
+      enable = true;
+      extraLuaConfig = ''
+        vim.cmd [[source /etc/nixos/repti/asd/.config/nvim/init.vim]]
+      '';
+    };
     ssh = {
       enable = true;
       enableDefaultConfig = false;
@@ -110,7 +116,6 @@
       igrep
       jq
       libarchive libosinfo libxml2 libxslt
-      neovim
       pandoc patch procs
       ripgrep rpm
       uv
@@ -123,6 +128,6 @@
     let
       ln = config.lib.file.mkOutOfStoreSymlink;
     in {
-      ".config/nvim".source = ln "/etc/nixos/repti/asd/.config/nvim";
+      ".config/nvim/colors/molokai.vim".source = /etc/nixos/repti/asd/.config/nvim/colors/molokai.vim;
     };
 }

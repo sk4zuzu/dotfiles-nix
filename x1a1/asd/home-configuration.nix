@@ -61,6 +61,12 @@
         navigate_with_arrows = "true";
       };
     };
+    neovim = {
+      enable = true;
+      extraLuaConfig = ''
+        vim.cmd [[source /etc/nixos/x1a1/asd/.config/nvim/init.vim]]
+      '';
+    };
     ssh = {
       enable = true;
       enableDefaultConfig = false;
@@ -77,12 +83,11 @@
     };
   };
   home.packages = with pkgs; [
-    neovim
   ];
   home.file =
     let
       ln = config.lib.file.mkOutOfStoreSymlink;
     in {
-      ".config/nvim".source = ln "/etc/nixos/x1a1/asd/.config/nvim";
+      ".config/nvim/colors/molokai.vim".source = /etc/nixos/x1a1/asd/.config/nvim/colors/molokai.vim;
     };
 }
