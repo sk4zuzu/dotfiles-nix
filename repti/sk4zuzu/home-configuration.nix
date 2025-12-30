@@ -94,8 +94,22 @@
     neovim = {
       enable = true;
       extraLuaConfig = ''
+        vim.api.nvim_create_autocmd('FileType', {
+          pattern = { 'bash', 'haskell', 'lua', 'make', 'nix', 'vim' },
+          callback = function() vim.treesitter.start() end,
+        })
         vim.cmd [[source /etc/nixos/repti/sk4zuzu/.config/nvim/init.vim]]
       '';
+      plugins = with pkgs.vimPlugins; [
+        (nvim-treesitter.withPlugins (plugins: with plugins; [
+          tree-sitter-bash
+          tree-sitter-haskell
+          tree-sitter-lua
+          tree-sitter-make
+          tree-sitter-nix
+          tree-sitter-vim
+        ]))
+      ];
     };
     ssh = {
       enable = true;
@@ -123,6 +137,10 @@
     ripgrep
     wget which
     yt-dlp
+  ] ++ [
+    gcc
+    nodejs
+    tree-sitter
   ] ++ [
     chromium
     dmenu dunst
