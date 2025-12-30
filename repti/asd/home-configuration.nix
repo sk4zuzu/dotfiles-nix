@@ -77,8 +77,30 @@
     neovim = {
       enable = true;
       extraLuaConfig = ''
+        vim.diagnostic.config({
+          underline = false,
+          virtual_lines = true,
+        })
+        vim.lsp.enable('gopls')
+        vim.api.nvim_create_autocmd('FileType', {
+          pattern = { 'bash', 'go', 'json', 'make', 'markdown', 'python', 'ruby', 'yaml' },
+          callback = function() vim.treesitter.start() end,
+        })
         vim.cmd [[source /etc/nixos/repti/asd/.config/nvim/init.vim]]
       '';
+      plugins = with pkgs.vimPlugins; [
+        nvim-lspconfig
+        (nvim-treesitter.withPlugins (plugins: with plugins; [
+          tree-sitter-bash
+          tree-sitter-go
+          tree-sitter-json
+          tree-sitter-make
+          tree-sitter-markdown
+          tree-sitter-python
+          tree-sitter-ruby
+          tree-sitter-yaml
+        ]))
+      ];
     };
     ssh = {
       enable = true;
@@ -111,7 +133,7 @@
       cdrkit cloud-utils curl
       dpkg
       fd
-      gcc gnumake go graphviz-nox
+      gnumake graphviz-nox
       hatch
       igrep
       jq
@@ -120,6 +142,10 @@
       ripgrep rpm
       uv
       wget which
+    ] ++ [
+      gcc go gopls
+      nodejs
+      tree-sitter
     ] ++ [
       python3-with-pkgs
       ruby-with-pkgs
