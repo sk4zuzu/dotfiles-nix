@@ -50,6 +50,7 @@
           g = "git";
           hrg = "history | rg";
           m = "make";
+          prg = "ps --no-header -eww -o pid,user,cmd | rg";
           root = "doas -s";
           vim = "nvim";
         };
@@ -148,7 +149,7 @@
       gnumake
       igrep
       jq
-      patch procs
+      patch procps procs
       ripgrep
       which
     ] ++ [

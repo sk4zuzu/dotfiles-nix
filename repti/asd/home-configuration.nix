@@ -34,6 +34,7 @@
         g = "git";
         hrg = "history | rg";
         m = "make";
+        prg = "ps --no-header -eww -o pid,user,cmd | rg";
         root = "doas -s";
         vim = "nvim";
       };
@@ -139,7 +140,7 @@
       igrep
       jq
       libarchive libosinfo libxml2 libxslt
-      pandoc patch procs
+      pandoc patch procps procs
       ripgrep rpm
       uv
       wget which
