@@ -104,12 +104,31 @@
               default_settings = {
                 ['rust-analyzer'] = {
                   cargo = { features = 'all' },
+                  semanticHighlighting = {
+                    strings = { enable = false },
+                  },
                 },
               },
             },
           }
           vim.api.nvim_create_autocmd('FileType', {
-            pattern = { 'bash', 'json', 'make', 'markdown', 'ruby', 'rust', 'toml', 'yaml' },
+            pattern = { 'rust' },
+            callback = function()
+              vim.treesitter.query.set("rust", "injections", [[
+                ; extends
+                (macro_invocation
+                  macro: ((identifier) @_id (#eq? @_id "bash"))
+                  (token_tree
+                    (raw_string_literal
+                      ((string_content) @injection.content
+                        (#set! injection.language "bash")
+                        (#set! injection.include-children)))))
+              ]])
+              vim.treesitter.start()
+            end,
+          })
+          vim.api.nvim_create_autocmd('FileType', {
+            pattern = { 'bash', 'json', 'make', 'markdown', 'ruby', 'toml', 'yaml' },
             callback = function() vim.treesitter.start() end,
           })
           vim.cmd [[source /etc/nixos/repti/ead/.config/nvim/init.vim]]
