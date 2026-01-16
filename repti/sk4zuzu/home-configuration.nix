@@ -1,132 +1,24 @@
 { config, pkgs, ... }: {
+  imports = [
+    ./programs.alacritty.nix
+    ./programs.bash.nix
+    ./programs.git.nix
+    ./programs.mc.nix
+    ./programs.neovim.nix
+    ./programs.ssh.nix
+  ];
+
+  programs = {
+    home-manager.enable = true;
+  };
+
   home = {
     homeDirectory = "/home/sk4zuzu";
     sessionPath = ["$HOME/.local/bin"];
     stateVersion = "26.05";
     username = "sk4zuzu";
   };
-  programs = {
-    home-manager.enable = true;
-    alacritty = {
-      enable = true;
-      settings = {
-        env = {
-          TERM = "xterm-256color";
-          WINIT_HIDPI_FACTOR = "1.0";
-        };
-        colors.primary = {
-          background = "0x000000";
-          foreground = "0x99e199";
-        };
-        colors.cursor = {
-          text = "0x000000";
-          cursor = "0xff0000";
-        };
-        font.bold = {
-          family = "MonacoLigaturized";
-          style = "Bold";
-        };
-        font.italic = {
-          family = "MonacoLigaturized";
-          style = "Italic";
-        };
-        font.normal = {
-          family = "MonacoLigaturized";
-          style = "Regular";
-        };
-        font.size = 10;
-      };
-    };
-    bash = {
-      enable = true;
-      initExtra = ''
-        export TERM='xterm-256color'
-        export PS1='\u:\w\$ '
-        export EDITOR='nvim'
-        cd /etc/nixos/
-      '';
-      shellAliases = {
-        b = "bash";
-        g = "git";
-        hrg = "history | rg";
-        m = "make";
-        prg = "ps --no-header -eww -o pid,user,cmd | rg";
-        root = "doas -s";
-        vim = "nvim";
-      };
-    };
-    git = {
-      enable = true;
-      settings.alias = {
-        a = "add";
-        c = ''! f(){ [ -n "$*" ] && git commit -m "$*" || git commit; }; f'';
-        ca = "commit --amend";
-        co = "checkout";
-        d = "diff";
-        f = "fetch";
-        l = "log";
-        s = "show";
-        ss = "status";
-        t = "tag";
-      };
-      settings.safe.directory = ["/etc/nixos"];
-      settings.user = {
-        email = "sk4zuzu@gmail.com";
-        name = "Michal Opala";
-      };
-    };
-    mc = {
-      enable = true;
-      settings.Layout = {
-        command_prompt = "true";
-        free_space = "false";
-        keybar_visible = "false";
-        menubar_visible = "false";
-        message_visible = "false";
-        xterm_title = "false";
-      };
-      settings.Midnight-Commander = {
-        skin = "modarin256";
-        use_internal_edit = "false";
-      };
-      settings.Panels = {
-        navigate_with_arrows = "true";
-      };
-    };
-    neovim = {
-      enable = true;
-      extraLuaConfig = ''
-        vim.api.nvim_create_autocmd('FileType', {
-          pattern = { 'bash', 'haskell', 'lua', 'make', 'nix', 'vim' },
-          callback = function() vim.treesitter.start() end,
-        })
-        vim.cmd [[source /etc/nixos/repti/sk4zuzu/.config/nvim/init.vim]]
-      '';
-      plugins = with pkgs.vimPlugins; [
-        (nvim-treesitter.withPlugins (plugins: with plugins; [
-          tree-sitter-bash
-          tree-sitter-haskell
-          tree-sitter-lua
-          tree-sitter-make
-          tree-sitter-nix
-          tree-sitter-vim
-        ]))
-      ];
-    };
-    ssh = {
-      enable = true;
-      enableDefaultConfig = false;
-      extraOptionOverrides = {
-        HostKeyAlgorithms = "+ssh-rsa";
-        PubkeyAcceptedKeyTypes = "+ssh-rsa";
-      };
-      matchBlocks."*" = {
-        forwardAgent = true;
-        hashKnownHosts = false;
-        userKnownHostsFile = "~/.ssh/known_hosts";
-      };
-    };
-  };
+
   home.packages = with pkgs; [
     bat
     curl
@@ -161,6 +53,7 @@
     mame
     (wine.override { wineRelease = "staging"; }) winetricks
   ];
+
   home.file =
     let
       ln = config.lib.file.mkOutOfStoreSymlink;

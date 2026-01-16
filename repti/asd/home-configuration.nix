@@ -1,123 +1,23 @@
 { config, pkgs, ... }: {
+  imports = [
+    ./programs.bash.nix
+    ./programs.git.nix
+    ./programs.mc.nix
+    ./programs.neovim.nix
+    ./programs.ssh.nix
+  ];
+
+  programs = {
+    home-manager.enable = true;
+  };
+
   home = {
     homeDirectory = "/home/asd";
     sessionPath = ["$HOME/.local/bin"];
     stateVersion = "26.05";
     username = "asd";
   };
-  programs = {
-    home-manager.enable = true;
-    bash = {
-      enable = true;
-      bashrcExtra = ''
-        SSH_AGENT_PID="$(pgrep -u "$USER" ssh-agent)"
-        if [[ -n "$SSH_AGENT_PID" ]]; then
-            export SSH_AGENT_PID SSH_AUTH_SOCK="$HOME/.ssh/.agent"
-        else
-            rm -f "$HOME/.ssh/.agent"
-            eval "$(ssh-agent -a "$HOME/.ssh/.agent")"
-            fd -tf -E 'id_*.pub' 'id_*' "$HOME/.ssh/" -x ssh-add
-        fi
-      '';
-      initExtra =
-        let
-          yellow = "\\033[38;2;255;255;0m";
-          clear = "\\033[0m";
-        in ''
-          export TERM='xterm-256color'
-          export PS1='${yellow}\w\$ ${clear}'
-          export EDITOR='nvim'
-          cd ~/_git/
-        '';
-      shellAliases = {
-        b = "bash";
-        g = "git";
-        hrg = "history | rg";
-        m = "make";
-        prg = "ps --no-header -eww -o pid,user,cmd | rg";
-        root = "doas -s";
-        vim = "nvim";
-      };
-    };
-    git = {
-      enable = true;
-      settings.alias = {
-        a = "add";
-        c = ''! f(){ [ -n "$*" ] && git commit -m "$*" || git commit; }; f'';
-        ca = "commit --amend";
-        co = "checkout";
-        d = "diff";
-        f = "fetch";
-        l = "log";
-        s = "show";
-        ss = "status";
-        t = "tag";
-      };
-      settings.user = {
-        email = "sk4zuzu@gmail.com";
-        name = "Michal Opala";
-      };
-    };
-    mc = {
-      enable = true;
-      settings.Layout = {
-        command_prompt = "true";
-        free_space = "false";
-        keybar_visible = "false";
-        menubar_visible = "false";
-        message_visible = "false";
-        xterm_title = "false";
-      };
-      settings.Midnight-Commander = {
-        skin = "modarin256";
-        use_internal_edit = "false";
-      };
-      settings.Panels = {
-        navigate_with_arrows = "true";
-      };
-    };
-    neovim = {
-      enable = true;
-      extraLuaConfig = ''
-        vim.diagnostic.config({
-          underline = false,
-          virtual_lines = true,
-        })
-        vim.lsp.enable('gopls')
-        vim.api.nvim_create_autocmd('FileType', {
-          pattern = { 'bash', 'go', 'json', 'make', 'markdown', 'python', 'ruby', 'yaml' },
-          callback = function() vim.treesitter.start() end,
-        })
-        vim.cmd [[source /etc/nixos/repti/asd/.config/nvim/init.vim]]
-      '';
-      plugins = with pkgs.vimPlugins; [
-        nvim-lspconfig
-        (nvim-treesitter.withPlugins (plugins: with plugins; [
-          tree-sitter-bash
-          tree-sitter-go
-          tree-sitter-json
-          tree-sitter-make
-          tree-sitter-markdown
-          tree-sitter-python
-          tree-sitter-ruby
-          tree-sitter-yaml
-        ]))
-      ];
-    };
-    ssh = {
-      enable = true;
-      enableDefaultConfig = false;
-      extraOptionOverrides = {
-        HostKeyAlgorithms = "+ssh-rsa";
-        PubkeyAcceptedKeyTypes = "+ssh-rsa";
-      };
-      matchBlocks."*" = {
-        forwardAgent = true;
-        hashKnownHosts = false;
-        userKnownHostsFile = "~/.ssh/known_hosts";
-      };
-    };
-  };
+
   home.packages =
     let
       python3-with-pkgs = pkgs.python3.withPackages (python-pkgs: with python-pkgs; [
@@ -152,6 +52,7 @@
       python3-with-pkgs
       ruby-with-pkgs
     ];
+
   home.file =
     let
       ln = config.lib.file.mkOutOfStoreSymlink;
