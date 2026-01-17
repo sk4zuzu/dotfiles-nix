@@ -24,7 +24,6 @@
     curl
     fd ffmpeg
     gnumake
-    htop
     igrep
     jq
     patch

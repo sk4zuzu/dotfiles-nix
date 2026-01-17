@@ -4,31 +4,64 @@
   nixpkgs.config.allowUnfree = true;
 
   environment.systemPackages = with pkgs; [
-    acpitool
-    bat bc bridge-utils
-    cabextract cdrkit cpufrequtils cryptsetup
-    dmidecode dnsutils dos2unix
-    edid-decode efibootmgr ethtool exfat
-    fd feh file
-    git gnumake gnuplot gnupg gptfdisk
-    htop
-    igrep iptables iotop
+    bc
+    dmidecode dos2unix
+    edid-decode
+    file
+    gnupg
     jq
-    lm_sensors lsof
-    mc mkpasswd multipath-tools
-    neovim nftables nmap ntfs3g ntp
+    mkpasswd
+    pciutils procs pv
+    syslinux
+    usbutils
+  ] ++ [
+    cdrkit cryptsetup
+    efibootmgr exfat
+    gptfdisk
+    multipath-tools
+    ntfs3g
+    sdparm
+  ] ++ [
+    bridge-utils
+    dnsutils
+    ethtool
+    iptables
+    nftables nmap ntp
     openssl openvpn
-    p7zip patch pciutils procs pv
-    radeontop ripgrep rsync
-    sdparm syslinux
-    tcpdump tmux
-    unrar unshield unzip usbutils
-    vim
+    rsync
+    tcpdump
     wireguard-tools
-    xclip
+  ] ++ [
+    bat
+    fd
+    git gnumake
+    igrep
+    mc
+    neovim
+    patch
+    ripgrep
+    tmux
+    vim
+  ] ++ [
+    acpitool
+    btop
+    cpufrequtils
+    htop
+    iftop iotop
+    lm_sensors lsof
+    nvtopPackages.amd
+    perf
+    wavemon
+  ] ++ [
+    cabextract
+    p7zip
+    unrar unshield unzip
     zip
   ] ++ [
+    feh
+    gnuplot
     mesa-demos
+    xclip
     xorg.xdpyinfo xorg.xev xorg.xgamma xorg.xhost xorg.xkill xorg.xmodmap
   ];
 

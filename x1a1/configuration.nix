@@ -4,7 +4,7 @@
   };
 
   environment.systemPackages = with pkgs; [
-    bash bat
+    bash bat btop
     fd file
     git gnumake
     htop
