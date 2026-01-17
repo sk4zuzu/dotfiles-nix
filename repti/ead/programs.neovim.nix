@@ -6,6 +6,7 @@
       nvim-dap
       (nvim-treesitter.withPlugins (plugins: with plugins; [
         tree-sitter-bash
+        tree-sitter-jinja
         tree-sitter-json
         tree-sitter-make
         tree-sitter-markdown
