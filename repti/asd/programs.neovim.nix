@@ -8,6 +8,7 @@
         tree-sitter-bash
         tree-sitter-go
         tree-sitter-hcl
+        tree-sitter-jinja
         tree-sitter-json
         tree-sitter-make
         tree-sitter-markdown

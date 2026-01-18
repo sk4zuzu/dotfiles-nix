@@ -26,8 +26,64 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 vim.api.nvim_create_autocmd('FileType', {
-  pattern = { 'hcl', 'json', 'markdown', 'terraform', 'yaml' },
+  pattern = { 'hcl', 'json', 'markdown', 'terraform' },
   callback = function()
+    vim.treesitter.start()
+    vim.o.ts = 2
+    vim.o.sw = 2
+    vim.o.et = true
+  end,
+})
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'yaml' },
+  callback = function()
+    vim.treesitter.query.set("yaml", "injections", [[
+      ; extends
+      (
+        [
+          (flow_node (single_quote_scalar) @injection.content)
+          (flow_node (double_quote_scalar) @injection.content)
+          (block_node (block_scalar) @injection.content)
+        ]
+        (#set! injection.language "jinja")
+        (#set! injection.include-children)
+      )
+      (block_mapping_pair
+        key: (flow_node (plain_scalar (string_scalar) @_id))
+        value:
+          [
+            (flow_node (single_quote_scalar) @injection.content)
+            (flow_node (double_quote_scalar) @injection.content)
+          ]
+        (#any-of? @_id "cmd")
+        (#offset! @injection.content 0 1 0 -1)
+        (#set! injection.language "bash")
+        (#set! injection.include-children)
+      )
+      (block_mapping_pair
+        key: (flow_node (plain_scalar (string_scalar) @_id))
+        value:
+          [
+            (flow_node (plain_scalar (string_scalar) @injection.content))
+            (block_node (block_scalar) @injection.content)
+          ]
+        (#any-of? @_id "cmd")
+        (#set! injection.language "bash")
+        (#set! injection.include-children)
+      )
+      (block_mapping_pair
+        key: (flow_node (plain_scalar (string_scalar) @_id))
+        value:
+          [
+            (flow_node (plain_scalar (string_scalar) @injection.content))
+            (block_node (block_sequence (block_sequence_item (flow_node (plain_scalar (string_scalar) @injection.content)))))
+          ]
+        (#any-of? @_id "changed_when" "failed_when" "that" "when")
+        (#set! injection.language "python")
+        (#set! injection.include-children)
+      )
+    ]])
     vim.treesitter.start()
     vim.o.ts = 2
     vim.o.sw = 2
