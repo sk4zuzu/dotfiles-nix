@@ -22,19 +22,23 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.treesitter.query.set("rust", "injections", [[
       ; extends
       (macro_invocation
-        macro: ((identifier) @_id (#eq? @_id "bash"))
-        (token_tree
-          (raw_string_literal
-            ((string_content) @injection.content
-              (#set! injection.language "bash")
-              (#set! injection.include-children)))))
+        macro: (identifier) @_id
+        [
+          (token_tree (raw_string_literal (string_content) @injection.content))
+        ]
+        (#any-of? @_id "bash")
+        (#set! injection.language "bash")
+        (#set! injection.include-children)
+      )
       (macro_invocation
-        macro: ((identifier) @_id (#eq? @_id "jinja"))
-        (token_tree
-          (raw_string_literal
-            ((string_content) @injection.content
-              (#set! injection.language "jinja")
-              (#set! injection.include-children)))))
+        macro: (identifier) @_id
+        [
+          (token_tree (raw_string_literal (string_content) @injection.content))
+        ]
+        (#any-of? @_id "jinja")
+        (#set! injection.language "jinja")
+        (#set! injection.include-children)
+      )
     ]])
     vim.treesitter.start()
     vim.o.ts = 4
