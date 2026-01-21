@@ -26,7 +26,7 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 vim.api.nvim_create_autocmd('FileType', {
-  pattern = { 'hcl', 'json', 'markdown', 'terraform' },
+  pattern = { 'hcl', 'json', 'markdown', 'nix', 'terraform' },
   callback = function()
     vim.treesitter.start()
     vim.o.ts = 2

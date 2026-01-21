@@ -12,6 +12,7 @@
         tree-sitter-json
         tree-sitter-make
         tree-sitter-markdown
+        tree-sitter-nix
         tree-sitter-python
         tree-sitter-ruby
         tree-sitter-terraform

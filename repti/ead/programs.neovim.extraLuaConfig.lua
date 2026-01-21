@@ -68,7 +68,7 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 vim.api.nvim_create_autocmd('FileType', {
-  pattern = { 'json', 'markdown', 'toml', 'yaml' },
+  pattern = { 'json', 'markdown', 'nix', 'toml', 'yaml' },
   callback = function()
     vim.treesitter.start()
     vim.o.ts = 2

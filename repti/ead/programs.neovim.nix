@@ -10,6 +10,7 @@
         tree-sitter-json
         tree-sitter-make
         tree-sitter-markdown
+        tree-sitter-nix
         tree-sitter-ruby
         tree-sitter-rust
         tree-sitter-toml
