@@ -31,6 +31,7 @@
       m = "make";
       prg = "ps --no-header -eww -o pid,user,cmd | rg";
       root = "doas -s";
+      v = "nvim";
       vim = "nvim";
     };
   };
