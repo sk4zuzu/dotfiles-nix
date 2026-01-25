@@ -8,7 +8,7 @@
     fd file
     git gnumake
     htop
-    igrep iproute2
+    iproute2
     jq
     mc
     neovim nftables

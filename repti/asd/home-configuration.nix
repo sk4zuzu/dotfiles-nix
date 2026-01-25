@@ -37,7 +37,7 @@
       fd
       gnumake graphviz-nox
       hatch
-      igrep
+      #igrep
       jq
       libarchive libosinfo libxml2 libxslt
       pandoc patch procps procs

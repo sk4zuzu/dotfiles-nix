@@ -35,7 +35,6 @@
     bat
     fd
     git gnumake
-    igrep
     mc
     neovim
     patch
@@ -146,7 +145,9 @@
     nameservers = [ "1.1.1.1" "8.8.8.8" ];
     wireless = {
       enable = true;
+      userControlled = true;
       interfaces = [ "wlp6s0" ];
+      extraConfigFiles = [ "/etc/wpa_supplicant.conf" ];
     };
     nat = {
       enable = true;
@@ -267,9 +268,9 @@
     };
     resolved = {
       enable = true;
-      dnssec = "false";
-      llmnr = "false";
-      extraConfig = "MulticastDNS=no";
+      settings.Resolve.DNSSEC = "false";
+      settings.Resolve.LLMNR = "false";
+      settings.Resolve.MulticastDNS = "false";
     };
     xserver = {
       enable = true;
@@ -284,7 +285,7 @@
           enableContribAndExtras = true;
         };
       };
-      videoDrivers = [ "amdgpu" ];
+      videoDrivers = [ "modesetting" ];
     };
   };
 

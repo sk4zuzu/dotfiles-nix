@@ -20,6 +20,6 @@
       ]))
     ];
 
-    extraLuaConfig = builtins.readFile ./programs.neovim.extraLuaConfig.lua;
+    initLua = builtins.readFile ./programs.neovim.initLua.lua;
   };
 }

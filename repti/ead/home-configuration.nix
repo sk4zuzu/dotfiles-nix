@@ -42,7 +42,7 @@
       curl
       fd
       gnumake
-      igrep
+      #igrep
       jq
       patch procps procs
       ripgrep ruby-with-pkgs

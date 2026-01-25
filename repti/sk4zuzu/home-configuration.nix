@@ -24,7 +24,6 @@
     curl
     fd ffmpeg
     gnumake
-    igrep
     jq
     patch
     ripgrep
