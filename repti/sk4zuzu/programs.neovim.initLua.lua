@@ -28,6 +28,15 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'sh' },
+  callback = function()
+    vim.o.ts = 4
+    vim.o.sw = 4
+    vim.o.et = true
+  end,
+})
+
 vim.cmd [[
   syntax on
   colorscheme molokai
