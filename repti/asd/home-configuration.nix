@@ -42,6 +42,7 @@
       libarchive libosinfo libxml2 libxslt
       pandoc patch procps procs
       ripgrep rpm
+      sshuttle
       uv
       wget which
     ] ++ [
