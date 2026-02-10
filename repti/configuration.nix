@@ -157,8 +157,8 @@
       enable = true;
       checkReversePath = false;
       trustedInterfaces = [ "br0" ];
-      allowedTCPPorts = [ 80 4430 5000 6112 8000 ] ++ [ 5005 6443 ];
-      allowedUDPPorts = [ 5029 5353 6112 27960 ];
+      allowedTCPPorts = [ 80 4430 5000 6112 8000 ] ++ [ 111 2049 4000 4001 4002 20048 ] ++ [ 5005 6443 ];
+      allowedUDPPorts = [ 5029 5353 6112 27960 ] ++ [ 111 2049 4000 4001 4002 20048 ];
     };
   };
 
@@ -249,6 +249,16 @@
     libinput = {
       enable = true;
       touchpad.tapping = true;
+    };
+    nfs.server = {
+      enable = true;
+      lockdPort = 4001;
+      mountdPort = 4002;
+      statdPort = 4000;
+      extraNfsdConfig = '''';
+      exports = ''
+        /stor/export 10.2.0.0/16(rw,fsid=0,no_subtree_check,no_root_squash)
+      '';
     };
     ntp.enable = false;
     openssh = {
