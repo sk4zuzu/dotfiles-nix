@@ -6,8 +6,63 @@ vim.diagnostic.config({
 vim.lsp.enable('gopls')
 
 vim.api.nvim_create_autocmd('FileType', {
-  pattern = { 'go', 'make' },
+  pattern = { 'go' },
   callback = function()
+    vim.treesitter.start()
+    vim.o.ts = 4
+    vim.o.sw = 4
+    vim.o.et = false
+  end,
+})
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'make' },
+  callback = function()
+    vim.treesitter.query.set('make', 'injections', [[
+      ; extends
+      (define_directive
+        name: (word) @_id
+        value: (raw_text) @injection.content
+        (#match? @_id "^\\w+_(BASH|SH)$")
+        (#set! injection.language "bash")
+        (#set! injection.include-children)
+      )
+      (define_directive
+        name: (word) @_id
+        value: (raw_text) @injection.content
+        (#match? @_id "^\\w+_HCL$")
+        (#set! injection.language "hcl")
+        (#set! injection.include-children)
+      )
+      (define_directive
+        name: (word) @_id
+        value: (raw_text) @injection.content
+        (#match? @_id "^\\w+_JSON$")
+        (#set! injection.language "json")
+        (#set! injection.include-children)
+      )
+      (define_directive
+        name: (word) @_id
+        value: (raw_text) @injection.content
+        (#match? @_id "^\\w+_MAKE$")
+        (#set! injection.language "make")
+        (#set! injection.include-children)
+      )
+      (define_directive
+        name: (word) @_id
+        value: (raw_text) @injection.content
+        (#match? @_id "^\\w+_XML$")
+        (#set! injection.language "xml")
+        (#set! injection.include-children)
+      )
+      (define_directive
+        name: (word) @_id
+        value: (raw_text) @injection.content
+        (#match? @_id "^\\w+_(YAML|YML)$")
+        (#set! injection.language "yaml")
+        (#set! injection.include-children)
+      )
+    ]])
     vim.treesitter.start()
     vim.o.ts = 4
     vim.o.sw = 4
@@ -38,7 +93,7 @@ vim.api.nvim_create_autocmd('FileType', {
 vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'yaml' },
   callback = function()
-    vim.treesitter.query.set("yaml", "injections", [[
+    vim.treesitter.query.set('yaml', 'injections', [[
       ; extends
       (
         [

@@ -17,6 +17,7 @@
         tree-sitter-ruby
         tree-sitter-terraform
         tree-sitter-yaml
+        tree-sitter-xml
       ]))
     ];
 
