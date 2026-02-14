@@ -19,7 +19,7 @@ vim.g.rustaceanvim = {
 vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'rust' },
   callback = function()
-    vim.treesitter.query.set("rust", "injections", [[
+    vim.treesitter.query.set('rust', 'injections', [[
       ; extends
       (macro_invocation
         macro: (identifier) @_id
@@ -50,6 +50,44 @@ vim.api.nvim_create_autocmd('FileType', {
 vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'make' },
   callback = function()
+    vim.treesitter.query.set('make', 'injections', [[
+      ; extends
+      (define_directive
+        name: (word) @_id
+        value: (raw_text) @injection.content
+        (#match? @_id "^\\w+_(BASH|SH)$")
+        (#set! injection.language "bash")
+        (#set! injection.include-children)
+      )
+      (define_directive
+        name: (word) @_id
+        value: (raw_text) @injection.content
+        (#match? @_id "^\\w+_JSON$")
+        (#set! injection.language "json")
+        (#set! injection.include-children)
+      )
+      (define_directive
+        name: (word) @_id
+        value: (raw_text) @injection.content
+        (#match? @_id "^\\w+_MAKE$")
+        (#set! injection.language "make")
+        (#set! injection.include-children)
+      )
+      (define_directive
+        name: (word) @_id
+        value: (raw_text) @injection.content
+        (#match? @_id "^\\w+_TOML$")
+        (#set! injection.language "toml")
+        (#set! injection.include-children)
+      )
+      (define_directive
+        name: (word) @_id
+        value: (raw_text) @injection.content
+        (#match? @_id "^\\w+_(YAML|YML)$")
+        (#set! injection.language "yaml")
+        (#set! injection.include-children)
+      )
+    ]])
     vim.treesitter.start()
     vim.o.ts = 4
     vim.o.sw = 4
