@@ -232,6 +232,7 @@
     libvirtd = {
       enable = true;
       qemu.vhostUserPackages = [ pkgs.virtiofsd ];
+      allowedBridges = [ "all" ];
     };
   };
 
