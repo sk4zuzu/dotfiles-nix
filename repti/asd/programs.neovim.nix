@@ -5,6 +5,7 @@
     plugins = with pkgs.vimPlugins; [
       nvim-lspconfig
       (nvim-treesitter.withPlugins (plugins: with plugins; [
+        tree-sitter-awk
         tree-sitter-bash
         tree-sitter-go
         tree-sitter-hcl

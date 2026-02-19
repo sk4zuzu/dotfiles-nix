@@ -96,7 +96,17 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 vim.api.nvim_create_autocmd('FileType', {
-  pattern = { 'bash', 'ruby' },
+  pattern = { 'bash', 'sh' },
+  callback = function(args)
+    vim.treesitter.start(args.buf, 'bash')
+    vim.o.ts = 4
+    vim.o.sw = 4
+    vim.o.et = true
+  end,
+})
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'ruby' },
   callback = function()
     vim.treesitter.start()
     vim.o.ts = 4
@@ -116,7 +126,7 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 vim.api.nvim_create_autocmd('FileType', {
-  pattern = { 'jinja', 'sh' },
+  pattern = { 'jinja' },
   callback = function()
     vim.o.ts = 4
     vim.o.sw = 4

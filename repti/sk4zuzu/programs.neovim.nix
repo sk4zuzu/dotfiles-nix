@@ -4,6 +4,7 @@
 
     plugins = with pkgs.vimPlugins; [
       (nvim-treesitter.withPlugins (plugins: with plugins; [
+        tree-sitter-awk
         tree-sitter-bash
         tree-sitter-haskell
         tree-sitter-json

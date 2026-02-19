@@ -9,7 +9,17 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 vim.api.nvim_create_autocmd('FileType', {
-  pattern = { 'bash', 'haskell', 'vim' },
+  pattern = { 'bash', 'sh' },
+  callback = function(args)
+    vim.treesitter.start(args.buf, 'bash')
+    vim.o.ts = 4
+    vim.o.sw = 4
+    vim.o.et = true
+  end,
+})
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'haskell', 'vim' },
   callback = function()
     vim.treesitter.start()
     vim.o.ts = 4
@@ -24,15 +34,6 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.treesitter.start()
     vim.o.ts = 2
     vim.o.sw = 2
-    vim.o.et = true
-  end,
-})
-
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = { 'sh' },
-  callback = function()
-    vim.o.ts = 4
-    vim.o.sw = 4
     vim.o.et = true
   end,
 })
