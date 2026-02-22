@@ -11,6 +11,7 @@
       f = "fetch";
       l = "log";
       s = "show";
+      so = "commit --amend --signoff";
       ss = "status";
       t = "tag";
     };
