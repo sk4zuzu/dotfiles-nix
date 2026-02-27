@@ -10,7 +10,9 @@
     file
     gnupg
     jq
+    libhugetlbfs
     mkpasswd
+    numactl
     pciutils procs pv
     syslinux
     usbutils
@@ -95,7 +97,13 @@
       };
     };
     kernelPackages = pkgs.linuxPackages_latest;
-    kernelParams = [];
+    kernelParams = [
+      "default_hugepagesz=1G"
+      "hugepagesz=1G"
+      "hugepages=16"
+      "hugepagesz=2M"
+      "hugepages=4096"
+    ];
     kernelModules = [ "ip6table_filter" "nbd" "vhost_net" ]; #++ [ "vfio_virqfd" "vfio_pci" "vfio_iommu_type1" "vfio" ];
     blacklistedKernelModules = [];
     kernel.sysctl = {
