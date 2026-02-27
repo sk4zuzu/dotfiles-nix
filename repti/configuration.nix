@@ -34,6 +34,9 @@
     tcpdump
     wireguard-tools
   ] ++ [
+    dpdk
+    openvswitch-dpdk
+  ] ++ [
     bat
     fd
     git gnumake
@@ -241,6 +244,10 @@
       enable = true;
       qemu.vhostUserPackages = [ pkgs.virtiofsd ];
       allowedBridges = [ "all" ];
+    };
+    vswitch = {
+      enable = true;
+      package = pkgs.openvswitch-dpdk;
     };
   };
 
