@@ -84,6 +84,7 @@
 
   imports = [
     /etc/nixos/hardware-configuration.nix
+    /etc/nixos/repti/hidden.nix
   ];
 
   boot = {
