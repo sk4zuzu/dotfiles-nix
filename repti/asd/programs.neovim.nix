@@ -7,6 +7,7 @@
       (nvim-treesitter.withPlugins (plugins: with plugins; [
         tree-sitter-awk
         tree-sitter-bash
+        tree-sitter-diff
         tree-sitter-go
         tree-sitter-hcl
         tree-sitter-jinja
