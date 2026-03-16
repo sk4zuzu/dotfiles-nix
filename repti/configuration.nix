@@ -48,7 +48,7 @@
     vim
   ] ++ [
     acpitool
-    btop
+    brightnessctl btop
     cpufrequtils
     htop
     iftop iotop
@@ -66,7 +66,7 @@
     gnuplot
     mesa-demos
     xclip
-    xorg.xdpyinfo xorg.xev xorg.xgamma xorg.xhost xorg.xkill xorg.xmodmap
+    xdpyinfo xev xgamma xhost xkill xmodmap
   ];
 
   environment.variables = {
@@ -76,7 +76,7 @@
   fonts = {
     enableDefaultPackages = true;
     packages = with pkgs; [
-      charis-sil
+      charis
       noto-fonts
       noto-fonts-color-emoji
     ];
@@ -224,7 +224,6 @@
 
   programs = {
     dconf.enable = true;
-    light.enable = true;
     slock.enable = true;
   };
 
