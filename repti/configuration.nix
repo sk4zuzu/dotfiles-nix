@@ -153,6 +153,18 @@
     hostName = "repti";
     extraHosts = ''
       127.0.0.1 lh
+      10.2.31.10 c2.alma.lh
+      10.2.31.86 c2-ha.alma.lh
+      10.2.81.10 d1.debian.lh
+      10.2.81.86 d1-ha.debian.lh
+      10.2.70.10 r1.redhat.lh
+      10.2.70.86 r1-ha.redhat.lh
+      10.2.60.10 s1.opensuse.lh
+      10.2.60.86 s1-ha.opensuse.lh
+      10.2.61.10 s2.suse.lh
+      10.2.61.86 s2-ha.suse.lh
+      10.2.80.10 u1.ubuntu.lh
+      10.2.80.86 u1-ha.ubuntu.lh
     '';
     nameservers = [ "1.1.1.1" "8.8.8.8" ];
     wireless = {
