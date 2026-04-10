@@ -47,7 +47,7 @@
     remmina
     transmission_4-gtk
   ] ++ [
-    dosbox-staging
+    dethrace dosbox-staging
     mame
     (wine.override { wineRelease = "staging"; }) winetricks
   ];
