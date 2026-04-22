@@ -181,7 +181,7 @@
       enable = true;
       checkReversePath = false;
       trustedInterfaces = [ "br0" ];
-      allowedTCPPorts = [ 80 4430 5000 6112 8000 ] ++ [ 111 2049 4000 4001 4002 20048 ] ++ [ 5005 6443 ];
+      allowedTCPPorts = [ 80 4430 5000 6112 8000 ] ++ [ 111 2049 4000 4001 4002 20048 ] ++ [ 5005 6443 ] ++ [ 514 ];
       allowedUDPPorts = [ 5029 5353 6112 27960 ] ++ [ 111 2049 4000 4001 4002 20048 ];
     };
   };
@@ -309,6 +309,18 @@
       settings.Resolve.DNSSEC = "false";
       settings.Resolve.LLMNR = "false";
       settings.Resolve.MulticastDNS = "false";
+    };
+    rsyslogd = {
+      enable = true;
+      extraConfig = ''
+        module(load="imtcp")
+        input(type="imtcp" port="514")
+        template(name="RemoteHostLogs" type="string" string="/var/log/remote/%HOSTNAME%/syslog.log")
+        if ($fromhost-ip != '127.0.0.1') then {
+            action(type="omfile" dynaFile="RemoteHostLogs")
+            stop
+        }
+      '';
     };
     xserver = {
       enable = true;
