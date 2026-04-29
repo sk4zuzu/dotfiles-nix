@@ -181,7 +181,7 @@
       enable = true;
       checkReversePath = false;
       trustedInterfaces = [ "br0" ];
-      allowedTCPPorts = [ 80 4430 5000 6112 8000 ] ++ [ 111 2049 4000 4001 4002 20048 ] ++ [ 5005 6443 ] ++ [ 514 ];
+      allowedTCPPorts = [ 80 4430 5000 6112 8000 ] ++ [ 111 2049 4000 4001 4002 20048 ] ++ [ 5005 6443 ] ++ [ 389 514 ];
       allowedUDPPorts = [ 5029 5353 6112 27960 ] ++ [ 111 2049 4000 4001 4002 20048 ];
     };
   };
@@ -289,6 +289,75 @@
       '';
     };
     ntp.enable = false;
+    openldap = {
+      enable = true;
+      urlList = [ "ldap:///" ];
+      settings = {
+        attrs = { olcLogLevel = "conns config"; };
+        children = {
+          "cn=schema".includes = [
+            "${pkgs.openldap}/etc/schema/core.ldif"
+            "${pkgs.openldap}/etc/schema/cosine.ldif"
+            "${pkgs.openldap}/etc/schema/inetorgperson.ldif"
+            "${pkgs.openldap}/etc/schema/nis.ldif"
+          ];
+          "cn=module{0}".attrs = {
+            objectClass = [ "olcModuleList" ];
+            olcModuleLoad = [ "memberof" "refint" ];
+          };
+          "olcDatabase={1}mdb".attrs = {
+            objectClass = [ "olcDatabaseConfig" "olcMdbConfig" ];
+            olcDatabase = "{1}mdb";
+            olcDbDirectory = "/var/lib/openldap/data";
+            olcSuffix = "dc=sk4zuzu,dc=eu";
+            olcRootDN = "cn=admin,dc=sk4zuzu,dc=eu";
+            olcRootPW = "asd123";
+          };
+          "olcDatabase={1}mdb".children = {
+            "olcOverlay={0}memberof".attrs = {
+              objectClass = [ "olcOverlayConfig" "olcMemberOf" ];
+              olcOverlay = "{0}memberof";
+              olcMemberOfDangling = "ignore";
+              olcMemberOfRefInt = "TRUE";
+              olcMemberOfGroupOC = "groupOfNames";
+              olcMemberOfMemberAD = "member";
+              olcMemberOfMemberOfAD = "memberOf";
+            };
+            "olcOverlay={1}refint".attrs = {
+              objectClass = [ "olcOverlayConfig" "olcRefintConfig" ];
+              olcOverlay = "{1}refint";
+              olcRefintAttribute = [ "memberof" "member" "manager" "owner" ];
+            };
+          };
+        };
+      };
+      declarativeContents."dc=sk4zuzu,dc=eu" = ''
+        dn: dc=sk4zuzu,dc=eu
+        objectClass: domain
+        dc: sk4zuzu
+
+        dn: ou=users,dc=sk4zuzu,dc=eu
+        objectClass: organizationalUnit
+        ou: users
+
+        dn: cn=asd,ou=users,dc=sk4zuzu,dc=eu
+        objectClass: inetOrgPerson
+        objectClass: person
+        userPassword: asd123
+        uid: asd
+        sn: asd.asd
+        cn: asd
+
+        dn: ou=groups,dc=sk4zuzu,dc=eu
+        objectClass: organizationalUnit
+        ou: groups
+
+        dn: cn=users,ou=groups,dc=sk4zuzu,dc=eu
+        objectClass: groupOfNames
+        member: cn=asd,ou=users,dc=sk4zuzu,dc=eu
+        cn: users
+      ''; # keep empty lines!
+    };
     openssh = {
       enable = true;
       ports = [ 2222 ];
