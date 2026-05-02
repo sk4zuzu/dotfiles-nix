@@ -74,6 +74,7 @@
     feh
     gnuplot
     mesa-demos
+    piper
     xclip
     xdpyinfo xev xgamma xhost xkill xmodmap
   ];
@@ -382,6 +383,9 @@
       alsa.enable = true;
       alsa.support32Bit = true;
       jack.enable = true;
+    };
+    ratbagd = {
+      enable = true;
     };
     resolved = {
       enable = true;
