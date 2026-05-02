@@ -28,7 +28,7 @@
     patch
     ripgrep
     wget which
-    yt-dlp
+    yt-dlp-light
   ] ++ [
     gcc
     nodejs
