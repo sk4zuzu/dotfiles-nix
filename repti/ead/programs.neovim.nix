@@ -7,6 +7,7 @@
       (nvim-treesitter.withPlugins (plugins: with plugins; [
         tree-sitter-awk
         tree-sitter-bash
+        tree-sitter-ini
         tree-sitter-jinja
         tree-sitter-json
         tree-sitter-make

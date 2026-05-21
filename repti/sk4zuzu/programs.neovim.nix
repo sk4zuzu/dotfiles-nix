@@ -7,6 +7,7 @@
         tree-sitter-awk
         tree-sitter-bash
         tree-sitter-haskell
+        tree-sitter-ini
         tree-sitter-json
         tree-sitter-lua
         tree-sitter-make

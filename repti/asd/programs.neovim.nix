@@ -10,6 +10,7 @@
         tree-sitter-diff
         tree-sitter-go
         tree-sitter-hcl
+        tree-sitter-ini
         tree-sitter-jinja
         tree-sitter-json
         tree-sitter-make
