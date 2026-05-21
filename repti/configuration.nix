@@ -113,8 +113,7 @@
     kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = [
       "default_hugepagesz=1G"
-      "hugepagesz=1G"
-      "hugepages=24"
+      "hugepages=32"
     ];
     kernelModules = [ "ip6table_filter" "nbd" "vhost_net" ]; #++ [ "vfio_virqfd" "vfio_pci" "vfio_iommu_type1" "vfio" ];
     blacklistedKernelModules = [];
