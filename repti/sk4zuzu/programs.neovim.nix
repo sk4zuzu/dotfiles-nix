@@ -11,6 +11,7 @@
         tree-sitter-lua
         tree-sitter-make
         tree-sitter-nix
+        tree-sitter-udev
         tree-sitter-vim
       ]))
     ];

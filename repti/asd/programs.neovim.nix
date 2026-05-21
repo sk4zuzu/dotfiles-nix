@@ -18,6 +18,7 @@
         tree-sitter-python
         tree-sitter-ruby
         tree-sitter-terraform
+        tree-sitter-udev
         tree-sitter-yaml
         tree-sitter-xml
       ]))

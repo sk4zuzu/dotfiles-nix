@@ -15,6 +15,7 @@
         tree-sitter-ruby
         tree-sitter-rust
         tree-sitter-toml
+        tree-sitter-udev
         tree-sitter-yaml
       ]))
       rustaceanvim
