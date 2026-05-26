@@ -53,6 +53,7 @@
       lldb
       nodejs
       rust-analyzer rustc
+      shellcheck
       tree-sitter
     ] ++ [
       rustaceanvim-pkgs.codelldb

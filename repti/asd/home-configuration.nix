@@ -48,6 +48,7 @@
     ] ++ [
       gcc go gopls
       nodejs
+      shellcheck
       tree-sitter
     ] ++ [
       python3-with-pkgs
