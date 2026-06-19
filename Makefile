@@ -15,7 +15,17 @@ repti:
 x1a1:
 	cd $(SELF) && doas nixos-rebuild switch --flake '.#$@' --impure
 
+.PHONY: u update
+
+u update:
+	nix flake update
+
 .PHONY: c clean
 
 c clean:
 	doas nix-collect-garbage -d
+
+.PHONY: o optimise
+
+o optimise:
+	nix-store --optimise

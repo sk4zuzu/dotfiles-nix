@@ -9,10 +9,10 @@
       PubkeyAcceptedKeyTypes = "+ssh-rsa";
     };
 
-    matchBlocks."*" = {
-      forwardAgent = true;
-      hashKnownHosts = false;
-      userKnownHostsFile = "~/.ssh/known_hosts";
+    settings."*" = {
+      ForwardAgent = "yes";
+      HashKnownHosts = "no";
+      UserKnownHostsFile = "~/.ssh/known_hosts";
     };
   };
 }
