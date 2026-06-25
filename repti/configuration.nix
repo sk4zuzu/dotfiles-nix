@@ -32,6 +32,7 @@
     multipath-tools
     ntfs3g
     sdparm
+    targetcli-fb
   ] ++ [
     bridge-utils
     dnsutils
@@ -189,7 +190,7 @@
       enable = true;
       checkReversePath = false;
       trustedInterfaces = [ "br0" ];
-      allowedTCPPorts = [ 80 4430 5000 6112 8000 ] ++ [ 111 2049 4000 4001 4002 20048 ] ++ [ 5005 6443 ] ++ [ 389 514 ];
+      allowedTCPPorts = [ 80 4430 5000 6112 8000 ] ++ [ 111 2049 4000 4001 4002 20048 ] ++ [ 5005 6443 ] ++ [ 389 514 ] ++ [ 3260 3261 ];
       allowedUDPPorts = [ 5029 5353 6112 27960 ] ++ [ 111 2049 4000 4001 4002 20048 ];
     };
   };
@@ -401,6 +402,9 @@
             stop
         }
       '';
+    };
+    target = {
+      enable = true;
     };
     xserver = {
       enable = true;
