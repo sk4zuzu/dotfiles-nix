@@ -295,6 +295,7 @@
       extraNfsdConfig = '''';
       exports = ''
         /stor/export 10.2.0.0/16(rw,fsid=0,no_subtree_check,no_root_squash)
+        /stor/export 10.3.0.0/16(rw,fsid=0,no_subtree_check,no_root_squash)
       '';
     };
     ntp.enable = false;
