@@ -246,6 +246,17 @@
   programs = {
     dconf.enable = true;
     slock.enable = true;
+    nix-ld = {
+      enable = true;
+      libraries = with pkgs; [
+        glibc
+        libffi
+        openssl
+        stdenv.cc.cc.lib
+        util-linux
+        zlib
+      ];
+    };
   };
 
   virtualisation = {
