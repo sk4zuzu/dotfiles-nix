@@ -49,7 +49,7 @@
   ] ++ [
     dethrace dosbox-staging
     mame
-    (wine.override { wineRelease = "staging"; }) winetricks
+    wineWow64Packages.staging winetricks
   ];
 
   home.file =
