@@ -14,5 +14,10 @@
       HashKnownHosts = "no";
       UserKnownHostsFile = "~/.ssh/known_hosts";
     };
+
+    settings."10.2.* 10.3.*" = {
+      strictHostKeyChecking = "no";
+      userKnownHostsFile = "/dev/null";
+    };
   };
 }
