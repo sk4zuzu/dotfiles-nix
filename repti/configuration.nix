@@ -34,6 +34,7 @@
     sdparm
     targetcli-fb
   ] ++ [
+    apt-cacher-ng
     bridge-utils
     dnsutils
     ethtool
@@ -190,7 +191,7 @@
       enable = true;
       checkReversePath = false;
       trustedInterfaces = [ "br0" ];
-      allowedTCPPorts = [ 80 4430 5000 6112 8000 ] ++ [ 111 2049 4000 4001 4002 20048 ] ++ [ 5005 6443 ] ++ [ 389 514 ] ++ [ 3260 3261 ];
+      allowedTCPPorts = [ 80 4430 5000 6112 8000 ] ++ [ 111 2049 4000 4001 4002 20048 ] ++ [ 5005 6443 ] ++ [ 389 514 ] ++ [ 3260 3261 ] ++ [ 3142 ];
       allowedUDPPorts = [ 5029 5353 6112 27960 ] ++ [ 111 2049 4000 4001 4002 20048 ];
     };
   };
@@ -223,7 +224,23 @@
     "systemd-networkd-wait-online".serviceConfig.ExecStart = [
       "" "${config.systemd.package}/lib/systemd/systemd-networkd-wait-online --any"
     ];
+    apt-cacher-ng = {
+      after = [ "network.target" ];
+      wantedBy = [ "multi-user.target" ];
+      serviceConfig = {
+        Type = "forking";
+        ExecStart = "${pkgs.apt-cacher-ng}/bin/apt-cacher-ng -c /etc/apt-cacher-ng";
+        User = "root";
+        Restart = "on-failure";
+      };
+    };
   };
+
+  environment.etc."apt-cacher-ng/acng.conf".text = ''
+    Port: 3142
+    CacheDir: /stor/apt-cacher-ng
+    LogDir: /stor/apt-cacher-ng
+  '';
 
   i18n.defaultLocale = "en_US.UTF-8";
 
