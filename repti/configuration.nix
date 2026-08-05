@@ -240,6 +240,10 @@
     Port: 3142
     CacheDir: /stor/apt-cacher-ng
     LogDir: /stor/apt-cacher-ng
+    VfilePatternEx: .*fedora.*updateinfo.*xml.zck$|^/\?release=[0-9]+&arch=.*|.*/RPM-GPG-KEY.*|.*\?repo=fedora|.*pkg.tar.zst.sig|.*repomd\.xml$|.*\.yaml\.xz$
+    DontCache: .*fedora.*updates.*updateinfo.xml.zck .*fedora.*repomd.xml .*repomd\.xml$
+    PfilePatternEx: .*\.deb$|.*\.rpm$|.*\.tar\.xz$|.*\.tar\.zst$
+    PassThroughPattern: .*
   '';
 
   i18n.defaultLocale = "en_US.UTF-8";
