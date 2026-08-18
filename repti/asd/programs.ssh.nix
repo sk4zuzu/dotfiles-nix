@@ -15,7 +15,7 @@
       UserKnownHostsFile = "~/.ssh/known_hosts";
     };
 
-    settings."10.2.* 10.3.*" = {
+    settings."10.2.* 10.3.* 172.16.*" = {
       strictHostKeyChecking = "no";
       userKnownHostsFile = "/dev/null";
     };
