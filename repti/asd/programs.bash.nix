@@ -15,8 +15,8 @@
 
     initExtra =
       let
-        yellow = "\\033[38;2;255;255;0m";
-        clear = "\\033[0m";
+        yellow = "\\[\\033[38;2;255;255;0m\\]";
+        clear = "\\[\\033[0m\\]";
       in ''
         export TERM='xterm-256color'
         export PS1='${yellow}\w\$ ${clear}'
