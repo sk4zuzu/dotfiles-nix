@@ -281,14 +281,14 @@
   };
 
   virtualisation = {
-    docker = {
-      enable = true;
-      daemon.settings = {
-        log-driver = "local";
-        features = { containerd-snapshotter = true; };
-        ip6tables = false;
-      };
-    };
+    #docker = {
+    #  enable = true;
+    #  daemon.settings = {
+    #    log-driver = "local";
+    #    features = { containerd-snapshotter = true; };
+    #    ip6tables = false;
+    #  };
+    #};
     #podman = {
     #  enable = true;
     #  dockerCompat = true;
