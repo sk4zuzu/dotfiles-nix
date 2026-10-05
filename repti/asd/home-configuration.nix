@@ -20,9 +20,9 @@
 
   home.packages =
     let
-      python3-with-pkgs = pkgs.python3.withPackages (python-pkgs: with python-pkgs; [
+      python3-with-pkgs = pkgs.python313.withPackages (python-pkgs: with python-pkgs; [
         ansible-core
-        pip python
+        pip
         virtualenv
         yamllint
       ]);
