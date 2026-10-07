@@ -28,7 +28,8 @@
   ] ++ [
     cdrkit cryptsetup
     efibootmgr exfat
-    gptfdisk
+    gptfdisk guestfs-tools
+    libguestfs-with-appliance
     multipath-tools
     ntfs3g
     sdparm
