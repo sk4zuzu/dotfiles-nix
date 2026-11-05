@@ -129,12 +129,11 @@
     '';
     initrd = {
       luks.devices = {
-        luks1 = { device = "/dev/disk/by-uuid/a23b3a97-9b0e-4054-9a2c-1ceeb893c74b"; keyFile = "/luks"; allowDiscards = true; preLVM = true; };
+        luks1 = { device = "/dev/disk/by-uuid/a23b3a97-9b0e-4054-9a2c-1ceeb893c74b"; keyFile = "/luks"; allowDiscards = true; };
       };
       secrets = {
         "/luks" = /etc/secrets/initrd/luks;
       };
-      systemd.enable = true;
     };
   };
 
